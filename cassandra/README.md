@@ -84,6 +84,8 @@ docker volume ls | grep cassandra01_
 
 Os dados ficam no volume nomeado do Docker, nao na pasta do projeto.
 
+> `docker compose down` remove containers e rede, mas **nao** remove o volume nomeado — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 Volume montado no container:
 
 - `cassandra01_data` -> `/var/lib/cassandra`

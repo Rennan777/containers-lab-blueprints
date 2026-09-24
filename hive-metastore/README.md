@@ -69,6 +69,8 @@ Volume montado no container do banco:
 
 - `hive-metastore-db01_data` -> `/var/lib/mysql`
 
+> `docker compose down` remove containers e rede, mas **nao** remove o volume nomeado — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 O container `hive-metastore01` em si nao tem estado proprio (tudo fica no banco).
 
 ## Integrando com o MinIO (tabelas externas em S3)

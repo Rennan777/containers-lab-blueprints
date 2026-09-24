@@ -90,6 +90,8 @@ docker exec -it kafka01 kafka-console-consumer --bootstrap-server localhost:9092
 
 Os dados do broker ficam em volume nomeado do Docker, nao na pasta do projeto.
 
+> `docker compose down` remove containers e rede, mas **nao** remove o volume nomeado — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 Volume montado no container:
 
 - `kafka01_data` -> `/var/lib/kafka/data`

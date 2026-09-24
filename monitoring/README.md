@@ -121,6 +121,8 @@ Apenas o Grafana persiste dados (dashboards, data sources) em volume nomeado:
 
 Prometheus, Node Exporter e cAdvisor sao stateless neste stack (sem volume de dados de series temporais).
 
+> `docker compose down` remove containers e rede, mas **nao** remove o volume nomeado do Grafana — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 ## Reset Completo
 
 ```bash

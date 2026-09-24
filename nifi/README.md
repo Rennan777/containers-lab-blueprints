@@ -83,6 +83,8 @@ docker volume ls | grep nifi01_
 
 Os dados do NiFi ficam nos volumes nomeados do Docker, não na pasta do projeto.
 
+> `docker compose down` remove containers e rede, mas **não** remove os volumes nomeados — os dados continuam no disco até um `docker volume rm` explícito (ver Reset Completo abaixo).
+
 Volumes montados no container:
 
 - `nifi01_conf` -> `/opt/nifi/nifi-current/conf`

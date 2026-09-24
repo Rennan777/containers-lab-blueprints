@@ -76,6 +76,8 @@ docker volume ls | grep postgres01_
 
 Os dados do PostgreSQL ficam no volume nomeado do Docker, nao na pasta do projeto.
 
+> `docker compose down` remove containers e rede, mas **nao** remove o volume nomeado — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 Volume montado no container:
 
 - `postgres01_data` -> `/var/lib/postgresql/data`

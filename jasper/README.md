@@ -99,6 +99,8 @@ docker volume ls | grep -E 'mariadb01_|jasperreports01_'
 
 Os dados ficam em volumes nomeados do Docker, nao na pasta do projeto.
 
+> `docker compose down` remove containers e rede, mas **nao** remove os volumes nomeados — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 Volumes montados nos containers:
 
 - `mariadb01_data` -> `/var/lib/mysql`

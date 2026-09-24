@@ -70,6 +70,8 @@ docker volume ls | grep sqlserver01_
 
 Os dados do SQL Server ficam no volume nomeado do Docker, nao na pasta do projeto.
 
+> `docker compose down` remove containers e rede, mas **nao** remove o volume nomeado — os dados continuam no disco ate um `docker volume rm` explicito (ver Reset Completo abaixo).
+
 Volume montado no container:
 
 - `sqlserver01_data` -> `/var/opt/mssql`
