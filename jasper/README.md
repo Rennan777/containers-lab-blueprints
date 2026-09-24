@@ -23,6 +23,12 @@ Esse comando cria automaticamente:
 - rede `jasper_default`
 - volumes `mariadb01_data` e `jasperreports01_data`
 
+Ambos os containers têm healthcheck. O `jasperreports01` só sobe depois que o `mariadb01` reporta `healthy`, e o próprio `jasperreports01` pode levar alguns minutos até ficar `healthy` (aplicação Java inicializando). Acompanhe com:
+
+```bash
+docker compose ps
+```
+
 ## Acesso
 
 Interface web:

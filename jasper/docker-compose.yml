@@ -11,6 +11,11 @@ services:
       MARIADB_PASSWORD: jasperpass
     volumes:
       - mariadb01_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: always
 
   jasperreports:
@@ -19,7 +24,8 @@ services:
     hostname: jasperreports01
     # Default app login for this image: jasperadmin / bitnami
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     environment:
       TZ: America/Sao_Paulo
       JASPERREPORTS_DATABASE_HOST: mariadb01
@@ -31,6 +37,12 @@ services:
       - "15080:8080"
     volumes:
       - jasperreports01_data:/bitnami/jasperreports
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/jasperserver/login.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5m
     restart: always
 
 volumes:
