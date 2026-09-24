@@ -1,0 +1,35 @@
+services:
+  trino-coordinator:
+    image: trinodb/trino:latest
+    container_name: trino-coordinator01
+    hostname: trino-coordinator01
+    volumes:
+      - ./etc-coordinator:/etc/trino
+      - ./catalog:/etc/trino/catalog
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/v1/info || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  trino-worker:
+    image: trinodb/trino:latest
+    container_name: trino-worker01
+    hostname: trino-worker01
+    depends_on:
+      trino-coordinator:
+        condition: service_healthy
+    volumes:
+      - ./etc-worker:/etc/trino
+      - ./catalog:/etc/trino/catalog
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/v1/info || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped

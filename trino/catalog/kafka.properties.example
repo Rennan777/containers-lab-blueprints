@@ -1,0 +1,7 @@
+# Exemplo de catalog para o stack kafka/ deste repo.
+# Para ativar: renomeie para "kafka.properties" e conecte este stack
+# a rede do kafka (ver README: "Conectando a outros stacks").
+connector.name=kafka
+kafka.nodes=kafka01:29092
+kafka.table-names=meu-topico
+kafka.hide-internal-columns=false

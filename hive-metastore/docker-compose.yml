@@ -1,0 +1,38 @@
+services:
+  hive-metastore-db:
+    image: mariadb:10.6
+    container_name: hive-metastore-db01
+    hostname: hive-metastore-db
+    environment:
+      TZ: America/Sao_Paulo
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_DATABASE: metastore_db
+    volumes:
+      - hive-metastore-db01_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  hive-metastore:
+    image: bitsondatadev/hive-metastore:latest
+    container_name: hive-metastore01
+    hostname: hive-metastore
+    depends_on:
+      hive-metastore-db:
+        condition: service_healthy
+    environment:
+      METASTORE_DB_HOSTNAME: hive-metastore-db
+    ports:
+      - "9083:9083"
+    volumes:
+      - ./config_hive/metastore-site.xml:/opt/apache-hive-metastore-3.0.0-bin/conf/metastore-site.xml:ro
+    restart: unless-stopped
+
+volumes:
+  hive-metastore-db01_data:
+    name: hive-metastore-db01_data
