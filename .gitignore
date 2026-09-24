@@ -1,0 +1,16 @@
+# Local control files (not part of the public blueprint repo)
+AGENTS.md
+STATUS.md
+
+# Leftover / runtime data from bind mounts (stacks use named Docker volumes)
+jasper/data/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Logs
+*.log

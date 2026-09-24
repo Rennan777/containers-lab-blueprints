@@ -1,0 +1,30 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver01
+    hostname: sqlserver01
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      MSSQL_PID: "Developer"
+    volumes:
+      - sqlserver01_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P YourStrong!Passw0rd -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"   # Limita o uso a 2 CPUs
+          memory: "4GB"  # Limita a 4GB de RAM
+        reservations:
+          cpus: "1.0"   # Reserva pelo menos 1 CPU
+          memory: "2GB" # Reserva pelo menos 2GB de RAM
+
+volumes:
+  sqlserver01_data:
+    name: sqlserver01_data
